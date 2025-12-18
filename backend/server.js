@@ -24,6 +24,7 @@ const shopRoutes = require('./routes/shopRoutes');
 const affiliateRoutes = require('./routes/affiliateRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
+const adminRoutes = require('./routes/admin.js');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -67,7 +68,7 @@ app.use('/api/auth/register', authLimiter);
 // ============================================================================
 // GENERAL MIDDLEWARE
 // ============================================================================
-
+  
 // Body parser middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -118,7 +119,7 @@ app.get('/api/health', (req, res) => {
     success: true,
     message: 'Event Platform API is running',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV
+   environment: process.env.NODE_ENV
   });
 });
 
@@ -134,6 +135,10 @@ app.use('/api/shop', shopRoutes);
 app.use('/api/affiliates', affiliateRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/notifications', notificationRoutes);
+// Note: admin.js and affiliate.js use ES6 modules, so they're handled separately
+// If needed, convert them to CommonJS or use dynamic imports
+// app.use('/api/admin', adminRoutes);
+// app.use("/api/affiliate", affiliateRoutes);
 
 // 404 Handler
 app.use((req, res) => {

@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { Toaster } from 'react-hot-toast'
@@ -29,7 +28,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ErrorBoundary FallbackComponent={ErrorFallback}>
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
             <ThemeProvider>
               <AuthProvider>
                 <App />
@@ -59,7 +57,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 />
               </AuthProvider>
             </ThemeProvider>
-          </BrowserRouter>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </HelmetProvider>

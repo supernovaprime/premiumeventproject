@@ -2,30 +2,39 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import LoadingSpinner from './LoadingSpinner';
+import { useAuth } from '../../contexts/AuthContext';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { login, isLoggingIn, error, clearError } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors } 
   } = useForm();
 
   const from = location.state?.from?.pathname || '/dashboard';
 
   const onSubmit = async (data) => {
-    clearError();
+    setError(null);
+    setIsLoading(true);
     try {
-      await login(data);
-      navigate(from, { replace: true });
+      const success = await login(data.emailOrPhone, data.password);
+      if (success) {
+        navigate(from, { replace: true });
+      } else {
+        setError('Invalid credentials. Please try again.');
+      }
     } catch (err) {
-      // Error is handled by the auth context
+      setError('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -161,10 +170,10 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              disabled={isLoggingIn}
+              disabled={isLoading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {isLoggingIn ? (
+              {isLoading ? (
                 <LoadingSpinner size="small" className="text-white" />
               ) : (
                 'Sign in'
