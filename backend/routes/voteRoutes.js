@@ -12,7 +12,17 @@ const {
 const { authenticateToken, authorize, validateObjectId } = require('../middleware/auth');
 const { handleValidationErrors, validatePagination } = require('../middleware/validation');
 
+import validateObjectId from "../middleware/validateObjectId.js";
+
+// Example
+
+
 const router = express.Router();
+
+router.get("/:id", validateObjectId, getEventById);
+router.put("/:id", validateObjectId, updateEvent);
+router.delete("/:id", validateObjectId, deleteEvent);
+
 
 // @route   GET /api/votes/event/:eventId
 // @desc    Get votes by event

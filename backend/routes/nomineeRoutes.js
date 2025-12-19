@@ -18,6 +18,13 @@ const { handleValidationErrors, validatePagination } = require('../middleware/va
 
 const router = express.Router();
 
+import validateObjectId from "../middleware/validateObjectId.js";
+
+// Example
+router.get("/:id", validateObjectId, getEventById);
+router.put("/:id", validateObjectId, updateEvent);
+router.delete("/:id", validateObjectId, deleteEvent);
+
 // @route   GET /api/nominees/category/:categoryId
 // @desc    Get nominees by category
 // @access  Public

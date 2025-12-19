@@ -6,6 +6,13 @@ import Ticket from "../models/Ticket.js";
 
 const router = express.Router();
 
+import validateObjectId from "../middleware/validateObjectId.js";
+
+// Example
+router.get("/:id", validateObjectId, getEvent);
+router.put("/:id", validateObjectId, updateEvent);
+router.delete("/:id", validateObjectId, deleteEvent);
+
 // GET /api/affiliate/stats
 router.get("/stats", protect, async (req, res) => {
   const user = await User.findById(req.user.id);

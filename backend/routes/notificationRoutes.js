@@ -10,10 +10,19 @@ const {
   broadcastNotification
 } = require('../controllers/notificationController');
 
+import validateObjectId from "../middleware/validateObjectId.js";
+
+// Example
+
+
 const { authenticateToken, authorize, validateObjectId } = require('../middleware/auth');
 const { handleValidationErrors, validatePagination } = require('../middleware/validation');
 
 const router = express.Router();
+
+router.get("/:id", validateObjectId, getEventById);
+router.put("/:id", validateObjectId, updateEvent);
+router.delete("/:id", validateObjectId, deleteEvent);
 
 // @route   GET /api/notifications
 // @desc    Get notifications

@@ -22,6 +22,13 @@ router.get("/stats", protect, async (req, res) => {
     });
   });
   
+  import validateObjectId from "../middleware/validateObjectId.js";
+
+  // Example
+  router.get("/:id", validateObjectId, getEventById);
+  router.put("/:id", validateObjectId, updateEvent);
+  router.delete("/:id", validateObjectId, deleteEvent);
+
 router.get("/recent", protect, async (req, res) => {
     const events = await Event.find({ organizer: req.user.id })
     .sort({ createdAt: -1 })

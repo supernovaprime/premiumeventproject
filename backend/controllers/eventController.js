@@ -1,11 +1,11 @@
-const Event = require('../models/Event');
-const Category = require('../models/Category');
-const Nominee = require('../models/Nominee');
-const Vote = require('../models/Vote');
-const Ticket = require('../models/Ticket');
-const { logger } = require('../utils/logger');
-const { AppError } = require('../middleware/errorHandler');
-const { generateSlug } = require('../utils/helpers');
+import Event from '../models/Event.js';
+import Category from '../models/Category.js';
+import Nominee from '../models/Nominee.js';
+import Vote from '../models/Vote.js';
+import Ticket from '../models/Ticket.js';
+import { AppError } from '../middleware/errorHandler.js';
+import { logger } from '../utils/logger.js';
+import { generateSlug } from '../utils/helpers.js';
 
 // @desc    Get all events
 // @route   GET /api/events

@@ -13,6 +13,13 @@ const {
 const { authenticateToken, authorize, validateObjectId } = require('../middleware/auth');
 const { handleValidationErrors, validatePagination } = require('../middleware/validation');
 
+import validateObjectId from "../middleware/validateObjectId.js";
+
+// Example
+router.get("/:id", validateObjectId, getEventById);
+router.put("/:id", validateObjectId, updateEvent);
+router.delete("/:id", validateObjectId, deleteEvent);
+
 const router = express.Router();
 
 // @route   GET /api/tickets/user

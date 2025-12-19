@@ -1,6 +1,6 @@
-const express = require('express');
-const { body } = require('express-validator');
-const {
+import express from 'express';
+import { body } from 'express-validator';
+import {
   register,
   login,
   logout,
@@ -13,12 +13,21 @@ const {
   verifyPhone,
   resendVerification,
   refreshToken
-} = require('../controllers/authController');
+} from '../controllers/authController.js';
 
-const { authenticateToken, requireEmailVerification } = require('../middleware/auth');
-const { handleValidationErrors, validatePassword } = require('../middleware/validation');
+import validateObjectId from "../middleware/validateObjectId.js";
+
+
+
+import { authenticateToken, requireEmailVerification } from '../middleware/auth.js';
+import { handleValidationErrors, validatePassword } from '../middleware/validation.js';
 
 const router = express.Router();
+
+// Example
+router.get("/:id", validateObjectId, getEvent);
+router.put("/:id", validateObjectId, updateEvent);
+router.delete("/:id", validateObjectId, deleteEvent);
 
 // @route   POST /api/auth/register
 // @desc    Register a new user

@@ -77,6 +77,12 @@ router.get("/recent", protect, isAdmin, async (req, res) => {
 export default router;
 
 // backend/routes/admin.js
+import validateObjectId from "../middleware/validateObjectId.js";
+
+// Example
+router.get("/:id", validateObjectId, getEvent);
+router.put("/:id", validateObjectId, updateEvent);
+router.delete("/:id", validateObjectId, deleteEvent);
 
 // GET: /api/admin/users
 router.get("/users", protect, isAdmin, async (req, res) => {

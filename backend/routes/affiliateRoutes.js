@@ -31,6 +31,13 @@ router.get('/stats', [
   authorize('affiliate')
 ], getAffiliateStats);
 
+import validateObjectId from "../middleware/validateObjectId.js";
+
+// Example
+router.get("/:id", validateObjectId, getEvent);
+router.put("/:id", validateObjectId, updateEvent);
+router.delete("/:id", validateObjectId, deleteEvent);
+
 // @route   GET /api/affiliates/referrals
 // @desc    Get affiliate referrals
 // @access  Private/Affiliate
